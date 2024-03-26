@@ -72,3 +72,15 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+  .control-form {
+    background-color: #4D5154; /* Black with 80% opacity */
+    color: #D0D0D1;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  /* Add more styles as needed */
+</style>

@@ -11,25 +11,18 @@
     <!-- Display loading indicator while fetching control parameters -->
     <div v-if="!controlParametersLoaded">Loading control parameters...</div>
 
-    <!-- Clean All button -->
-    
-    <button @click="cleanRenderer">Clean All</button>
-    
-    <!-- Take Scene button -->
-    <button @click="takeScene(selectedSceneId)">Take </button>
-
-    <button @click="continueScene()">Continue </button>
-    
-    <button @click="takeoutScene()">Take Out </button>
-  </div>
+    <ControlButtons :sendTCPCommand="sendTCPCommand" :selectedSceneId="selectedSceneId"/> <!-- Pass the method as a prop -->
+ </div>
 </template>
 
 <script>
 import SceneControlForm from './SceneControlForm.vue';
+import ControlButtons from './ControlButtons.vue';
 
 export default {
   components: {
-    SceneControlForm
+    SceneControlForm,
+    ControlButtons
   },
   data() {
     return {
@@ -98,45 +91,6 @@ export default {
       //this.sendTCPCommand(`<${sceneId}> LOAD`);
     },
 
-    takeScene(sceneId){   
-      this.sendTCPCommand(`RENDERER*UPDATE SET 0`);
-      this.sendTCPCommand(`<${sceneId}> CUE`);
-      this.sendTCPCommand(`RENDERER*MAIN_LAYER SET_OBJECT <${sceneId}>` );
-      this.sendTCPCommand(`RENDERER*STAGE START`);
-      this.sendTCPCommand(`RENDERER*UPDATE SET 1`);
-    },
-
-    continueScene(){   
-      this.sendTCPCommand(`RENDERER*STAGE CONTINUE`);
-    },
-    
-    takeoutScene(){   
-      this.sendTCPCommand(`RENDERER*UPDATE SET 0`);
-      this.sendTCPCommand(`RENDERER*MAIN_LAYER SET_OBJECT` );
-      this.sendTCPCommand(`RENDERER*UPDATE SET 1`);
-    },
-
-    cleanRenderer() {
-      console.log("CLEAN UP")
-      // Define an array of cleanup commands
-      const cleanupCommands = [
-        'RENDERER*FRONT_LAYER SET_OBJECT',
-        'RENDERER*MAIN_LAYER SET_OBJECT',
-        'RENDERER*BACK_LAYER SET_OBJECT',
-        'SCENE CLEANUP',
-        'GEOM CLEANUP',
-        'IMAGE CLEANUP',
-        'FONT CLEANUP',
-        'MATERIAL CLEANUP',
-        'MAPS CACHE CLEANUP'
-        // Add more commands as needed
-      ];
-
-      // Iterate through the cleanup commands and send them one by one
-      cleanupCommands.forEach(command => {
-        this.sendTCPCommand(command);
-      });
-    },
 
 
     sendTCPCommand(command) {
