@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="card">
       <!-- Take Scene button -->
       <button @click="takeScene(selectedSceneId)">Take</button>
       
@@ -62,3 +62,7 @@
   };
   </script>
   
+
+  <style scoped>
+  
+  </style>

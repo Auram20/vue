@@ -1,23 +1,38 @@
 <template>
   <div>
     <!-- Scene buttons -->
-    <button v-for="scene in scenes" :key="scene.id" @click="loadScene(scene.id)">
-      {{ scene.name }}
-    </button>
-
+    <div class="card">
+      <h1> Scenes in the Swimming Folder : </h1>
+      <button v-for="scene in scenes" :key="scene.id" @click="loadScene(scene.id)"
+        :class="{ 'active': scene.id === selectedSceneId }">
+        {{ scene.name }}
+      </button>
+    </div>
     <!-- Scene control form -->
     <SceneControlForm v-if="controlParametersLoaded" :sceneId="selectedSceneId" :showSaveButton="saveButtonVisible" />
 
     <!-- Display loading indicator while fetching control parameters -->
     <div v-if="!controlParametersLoaded">Loading control parameters...</div>
 
-    <ControlButtons :sendTCPCommand="sendTCPCommand" :selectedSceneId="selectedSceneId"/> <!-- Pass the method as a prop -->
- </div>
+    <ControlButtons :sendTCPCommand="sendTCPCommand" :selectedSceneId="selectedSceneId" />
+    <!-- Pass the method as a prop -->
+
+  </div>
+
+
+  <VizCard :title="title" :description="description">
+    <template #actions>
+      <VizButton variant="secondary" label="Cancel" />
+      <VizButton variant="primary" label="Open" />
+    </template>
+  </VizCard>
 </template>
 
 <script>
 import SceneControlForm from './SceneControlForm.vue';
 import ControlButtons from './ControlButtons.vue';
+
+import axios from 'axios';
 
 export default {
   components: {
@@ -77,42 +92,50 @@ export default {
         });
     },
 
-    loadScene(sceneId) {
-      // Reset controlParametersLoaded flag
-      this.controlParametersLoaded = false;
-      // Fetch control parameters for the scene
-      this.fetchControlParameters(sceneId);
-      // Set selected scene id
-      this.selectedSceneId = sceneId;
-      // Show save button
-      this.saveButtonVisible = true;
 
-      
-      //this.sendTCPCommand(`<${sceneId}> LOAD`);
-    },
+  loadScene(sceneId) {
+    // Reset controlParametersLoaded flag
+    this.controlParametersLoaded = false;
+    // Fetch control parameters for the scene
+    this.fetchControlParameters(sceneId);
+    // Set selected scene id
+    this.selectedSceneId = sceneId;
+    // Show save button
+    this.saveButtonVisible = true;
+    console.log(sceneId);
+    // Check if the scene activates JSON data fetching
+  },
+
 
 
 
     sendTCPCommand(command) {
-  const socket = new WebSocket('ws://192.168.1.166:6900');
-  socket.addEventListener('open', function () {
-    socket.send(command);
-  });
+      const socket = new WebSocket('ws://192.168.1.166:6900');
+      socket.addEventListener('open', function () {
+        socket.send(command);
+      });
 
-  // Add error handling
-  socket.addEventListener('error', function (error) {
-    console.error('WebSocket error:', error);
-  });
+      // Add error handling
+      socket.addEventListener('error', function (error) {
+        console.error('WebSocket error:', error);
+      });
 
-  // Add close event handling
-  socket.addEventListener('close', function () {
-    console.log('WebSocket connection closed');
-  });
-}
+      // Add close event handling
+      socket.addEventListener('close', function () {
+        console.log('WebSocket connection closed');
+      });
+    }
   },
   mounted() {
     // Fetch scenes when the component is mounted
     this.fetchScenes();
+    
   }
 };
 </script>
+
+
+
+<style>
+
+</style>
