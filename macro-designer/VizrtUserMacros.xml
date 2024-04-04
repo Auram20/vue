@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<macros>
+  <macro name="TAKE_IMAGE_SCENE">
+    <env>
+      <viz>REND SET_OBJECT Vizrt/VizOpus/scenes/image-message</viz>
+      <viz>REND*STAGE SHOW 0.0</viz>
+      <viz>REND*STAGE START</viz>
+    </env>
+  </macro>
+  <macro name="TAKE_BULLET_SCENE">
+    <env>
+      <viz>REND SET_OBJECT Vizrt/VizOpus/scenes/Win-Bullets</viz>
+      <viz>REND*STAGE SHOW 0.0</viz>
+      <viz>REND*STAGE START</viz>
+    </env>
+  </macro>
+  <macro name="TAKE_DVE_SCENE">
+    <env>
+      <viz>REND SET_OBJECT Vizrt/VizOpus/scenes/Liveboxes</viz>
+      <viz>REND*STAGE SHOW 0.0</viz>
+      <viz>REND*STAGE START</viz>
+    </env>
+  </macro>
+  <macro name="2BOX">
+    <env>
+      <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*FULLSCREEN SHOW $2W</viz>
+    </env>
+  </macro>
+  <macro name="2BOXOUT">
+    <env>
+      <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*FULLSCREEN GOTO_TRIO $2W $O</viz>
+    </env>
+  </macro>
+  <macro name="3BOX">
+    <env>
+      <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*FULLSCREEN SHOW $3W</viz>
+    </env>
+  </macro>
+  <macro name="3BOXOUT">
+    <env>
+      <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*FULLSCREEN GOTO_TRIO $3W $O</viz>
+    </env>
+  </macro>
+  <macro name="2BOXILLUSTRATION">
+    <env>
+      <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*FULLSCREEN GOTO_TRIO $2W $SB</viz>
+    </env>
+  </macro>
+  <macro name="CONTINUE_DEMO_SCENE">
+    <env>
+      <viz>REND*STAGE CONTINUE</viz>
+    </env>
+  </macro>
+  <macro name="SBOUT">
+    <env>
+      <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*FULLSCREEN GOTO_TRIO $SB $O</viz>
+    </env>
+  </macro>
+  <macro name="LIVEIN">
+    <env>
+      <viz>REND*MAIN_LAYER*TREE*$LIVE*FUNCTION*Toggle*object SET GEOM*Vizrt/VizOpus/Concepts/concept=Concept1/LiveONLY</viz>
+      <viz>REND*MAIN_LAYER*TREE*$LIVE$other$object*FUNCTION*ControlObject*in SET ON 01-LIVE-status SET LIVE\002-LIVE-location SET</viz>
+      <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*LIVE GOTO_TRIO $O $IN</viz>
+    </env>
+  </macro>
+  <macro name="LIVEOUT">
+    <env>
+      <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*LIVE GOTO_TRIO $IN $O</viz>
+    </env>
+  </macro>
+  <macro name="CLEAR">
+    <env>
+      <viz>REND SET_OBJECT</viz>
+    </env>
+  </macro>
+</macros>
+
+
+

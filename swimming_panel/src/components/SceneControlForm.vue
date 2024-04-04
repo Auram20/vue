@@ -45,7 +45,7 @@ export default {
   methods: {
     fetchControlParameters(sceneId) {
       // Fetch control parameter values for the scene
-      fetch(`http://192.168.1.166:61000/api/v1/scene/${sceneId}/fields`)
+      fetch(`http://localhost:61000/api/v1/scene/${sceneId}/fields`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Failed to fetch control parameter values');
@@ -107,7 +107,7 @@ export default {
   });
 
   // Make the PUT request to update control parameters
-    axios.put(`http://192.168.1.166:61000/api/v1/scene/${this.sceneId}/fields`, payload)
+    axios.put(`http://localhost:61000/api/v1/scene/${this.sceneId}/fields`, payload)
     .then(response => {
       console.log('Control parameters updated successfully:', response.data);
       // Set controlParametersLoaded to true
@@ -124,7 +124,7 @@ export default {
   },
     submitForm() {
       // Send PUT request to update control parameters
-      fetch(`http://192.168.1.166:61000/api/v1/scene/${this.sceneId}/fields`, {
+      fetch(`http://localhost:61000/api/v1/scene/${this.sceneId}/fields`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

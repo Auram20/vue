@@ -50,7 +50,7 @@ export default {
 
   methods: {
     fetchScenes() {
-      fetch('http://192.168.1.166:19398/files/0C0C2C50-0B0D-B54F-890EDF9B04FE063B', {
+      fetch('http://localhost:19398/files/0C0C2C50-0B0D-B54F-890EDF9B04FE063B', {
         headers: {
           'Authorization': 'Basic ' + btoa('Admin:VizDb') // Add authentication headers
         }
@@ -75,7 +75,7 @@ export default {
 
     fetchControlParameters(sceneId) {
       // Fetch control parameter values for the scene
-      fetch(`http://192.168.1.166:61000/api/v1/scene/${sceneId}/fields`)
+      fetch(`http://localhost:61000/api/v1/scene/${sceneId}/fields`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Failed to fetch control parameter values');
@@ -93,24 +93,24 @@ export default {
     },
 
 
-  loadScene(sceneId) {
-    // Reset controlParametersLoaded flag
-    this.controlParametersLoaded = false;
-    // Fetch control parameters for the scene
-    this.fetchControlParameters(sceneId);
-    // Set selected scene id
-    this.selectedSceneId = sceneId;
-    // Show save button
-    this.saveButtonVisible = true;
-    console.log(sceneId);
-    // Check if the scene activates JSON data fetching
-  },
+    loadScene(sceneId) {
+      // Reset controlParametersLoaded flag
+      this.controlParametersLoaded = false;
+      // Fetch control parameters for the scene
+      this.fetchControlParameters(sceneId);
+      // Set selected scene id
+      this.selectedSceneId = sceneId;
+      // Show save button
+      this.saveButtonVisible = true;
+      console.log(sceneId);
+      // Check if the scene activates JSON data fetching
+    },
 
 
 
 
     sendTCPCommand(command) {
-      const socket = new WebSocket('ws://192.168.1.166:6900');
+      const socket = new WebSocket('ws://localhost:6900');
       socket.addEventListener('open', function () {
         socket.send(command);
       });
@@ -126,16 +126,16 @@ export default {
       });
     }
   },
+
+
   mounted() {
     // Fetch scenes when the component is mounted
     this.fetchScenes();
-    
+
   }
 };
 </script>
 
 
 
-<style>
-
-</style>
+<style></style>
