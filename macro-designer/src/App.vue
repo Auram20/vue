@@ -1,23 +1,29 @@
 <template>
   <div id="app">
     <macro-toolbar @file-selected="handleFileSelected" />
-    <macro-list :macros="macros" />
+    <macro-list :macros="macros" @edit-macro="handleEditMacro" />
+    <!-- Render MacroForm.vue conditionally based on showMacroForm -->
+    <macro-form v-if="showMacroForm" :macro="selectedMacro" @save="saveMacro" @close="closeMacroForm" />
   </div>
 </template>
 
 <script>
 import MacroToolbar from './components/MacroToolbar.vue';
 import MacroList from './components/MacroList.vue';
+import MacroForm from './components/MacroForm.vue';
 
 export default {
   name: 'App',
   components: {
     MacroToolbar,
     MacroList,
+    MacroForm,
   },
   data() {
     return {
       macros: [], // Initialize macros array
+      showMacroForm: false, // Control visibility of the macro form
+      selectedMacro: null, // Store the selected macro for editing
     };
   },
   methods: {
@@ -40,6 +46,27 @@ export default {
         macros.push({ name, env });
       }
       this.macros = macros; // Update macros array
+    },
+    openMacroForm(macro) {
+      // Set the selectedMacro and showMacroForm to open the MacroForm
+      this.selectedMacro = macro;
+      this.showMacroForm = true;
+    },
+    saveMacro() {
+      // Handle saving the edited macro
+      // Code for saving the edited macro...
+      // After saving, close the MacroForm
+      this.showMacroForm = false;
+    },
+    closeMacroForm() {
+      // Close the MacroForm
+      this.showMacroForm = false;
+    },
+    handleEditMacro(macro) {
+      // Handle the edit-macro event received from the MacroList component
+      // Set the selectedMacro and showMacroForm to open the MacroForm
+      this.selectedMacro = macro;
+      this.showMacroForm = true;
     }
   }
 };

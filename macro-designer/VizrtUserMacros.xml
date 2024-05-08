@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <macros>
-  <macro name="TAKE_IMAGE_SCENE">
-    <env>
-      <viz>REND SET_OBJECT Vizrt/VizOpus/scenes/image-message</viz>
-      <viz>REND*STAGE SHOW 0.0</viz>
-      <viz>REND*STAGE START</viz>
-    </env>
-  </macro>
-  <macro name="TAKE_BULLET_SCENE">
-    <env>
-      <viz>REND SET_OBJECT Vizrt/VizOpus/scenes/Win-Bullets</viz>
-      <viz>REND*STAGE SHOW 0.0</viz>
-      <viz>REND*STAGE START</viz>
-    </env>
-  </macro>
-  <macro name="TAKE_DVE_SCENE">
-    <env>
-      <viz>REND SET_OBJECT Vizrt/VizOpus/scenes/Liveboxes</viz>
-      <viz>REND*STAGE SHOW 0.0</viz>
-      <viz>REND*STAGE START</viz>
-    </env>
-  </macro>
+  
+   <macro name = "CLEANUPENGINE">
+        <env>
+            <viz>RENDERER*FRONT_LAYER SET_OBJECT</viz>
+			<viz>RENDERER*MAIN_LAYER SET_OBJECT</viz>
+			<viz>RENDERER*BACK_LAYER SET_OBJECT</viz>
+			<viz>SCENE CLEANUP</viz>
+			<viz>GEOM CLEANUP</viz>
+			<viz>IMAGE CLEANUP</viz>
+			<viz>FONT CLEANUP</viz>
+			<viz>MATERIAL CLEANUP</viz>
+			<viz>MAPS CACHE CLEANUP</viz>	
+        </env>
+</macro>
+  <macro name="SEND_VIZ_COMMANDS_TO_DESTINATION"> 
+	<env>
+		<def var="profile">/config/profiles/MOSART</def>
+		<def var="channel">FULL1</def>
+		<forked_exec>
+			<entry name="execution_group"><var>channel</var></entry>
+			<entry name="execution_type">viz</entry>
+			<viz>RENDERER SET_OBJECT</viz>
+		</forked_exec>
+	</env>
+</macro>
   <macro name="2BOX">
     <env>
       <viz>REND*MAIN_LAYER*STAGE*DIRECTOR*FULLSCREEN SHOW $2W</viz>

@@ -1,4 +1,4 @@
-<template>
+  <template>
     <div class="macro-card">
       <h3>{{ macro.name }}</h3>
       <ul>
@@ -7,7 +7,7 @@
       <button @click="editMacro">Edit</button>
     </div>
   </template>
-  
+
   <script>
   export default {
     name: 'MacroCard',
@@ -15,12 +15,10 @@
       macro: Object
     },
     methods: {
-      editMacro() {
-        // Handle edit macro action
-      }
     }
   };
   </script>
+
   <style scoped>
+  /* Add styling for the macro card */
   </style>
-  

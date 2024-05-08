@@ -46,9 +46,11 @@
         this.showNewMacroCard = false;
       },
   
-      editMacro() {
-        // Handle edit macro action
-      }
+      editMacro(macro) {
+      // Emit an event to notify the parent component that the edit button is clicked
+      console.log("CLICKED")
+      this.$emit('edit-macro', macro);
+    }
     }
   };
   </script>
